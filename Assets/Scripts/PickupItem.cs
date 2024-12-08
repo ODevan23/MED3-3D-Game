@@ -2,12 +2,13 @@ using UnityEngine;
 
 public class PickupItem : MonoBehaviour
 {
-    [Tooltip("Optional sound or effect on pickup")]
-    public AudioClip pickupSound;
     [Tooltip("The maximum distance the player can pick up the item from")]
     public float pickupRange = 3.0f;
 
     private Transform playerCamera;
+
+    [Tooltip("Reference to the MonsterSpawner script")]
+    public MonsterSpawner monsterSpawner; // Reference to the MonsterSpawner
 
     private void Start()
     {
@@ -40,23 +41,17 @@ public class PickupItem : MonoBehaviour
 
     private void Pickup()
     {
-        // Play the pickup sound if available
-        if (pickupSound != null)
-        {
-            AudioSource.PlayClipAtPoint(pickupSound, transform.position);
-        }
-
         // Destroy the object (make it disappear)
         Destroy(gameObject);
-    }
 
-    private void OnDrawGizmosSelected()
-    {
-        // Visualize the pickup range in the Scene view
-        Gizmos.color = Color.yellow;
-        if (playerCamera != null)
+        // Spawn monsters when the item is picked up
+        if (monsterSpawner != null)
         {
-            Gizmos.DrawRay(playerCamera.position, playerCamera.forward * pickupRange);
+            monsterSpawner.SpawnMonsters();
+        }
+        else
+        {
+            Debug.LogError("MonsterSpawner not assigned in PickupItem script!");
         }
     }
 }
