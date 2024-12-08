@@ -2,29 +2,25 @@ using UnityEngine;
 
 public class PickupItem : MonoBehaviour
 {
-    [Tooltip("The maximum distance the player can pick up the item from")]
     public float pickupRange = 3.0f;
-
     private Transform playerCamera;
-
-    [Tooltip("Reference to the MonsterSpawner script")]
     public MonsterSpawner monsterSpawner;
 
     private void Start()
     {
         
-        playerCamera = Camera.main.transform;
+        playerCamera = Camera.main.transform; //We get the player camera's transform for later
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.E))
+        if (Input.GetKeyDown(KeyCode.E)) //if player click "E" it tries the TryPickup method
         {
             TryPickup();
         }
     }
 
-    private void TryPickup()
+    private void TryPickup() //Raycasts to see if the player camera is within the ray cast
     {
         Ray ray = new Ray(playerCamera.position, playerCamera.forward);
         if (Physics.Raycast(ray, out RaycastHit hit, pickupRange))
@@ -36,7 +32,7 @@ public class PickupItem : MonoBehaviour
         }
     }
 
-    private void Pickup()
+    private void Pickup() //with a succesful pickup it destroys the blackbox and makes the monsterspawner start
     {
         Destroy(gameObject);
 
@@ -46,7 +42,7 @@ public class PickupItem : MonoBehaviour
         }
         else
         {
-            Debug.LogError("MonsterSpawner not assigned in PickupItem script!");
+            Debug.LogError("MonsterSpawner not assigned");
         }
     }
 }

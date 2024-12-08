@@ -2,18 +2,12 @@ using UnityEngine;
 
 public class MonsterSpawner : MonoBehaviour
 {
-    [Tooltip("The terrains where monsters will be placed")]
     public Terrain[] terrains;
-
-    [Tooltip("Monster prefab to spawn")]
     public GameObject monsterPrefab;
-
-    [Tooltip("Number of monsters to spawn per terrain")]
     public int numberOfMonsters = 5;
 
     private bool monstersSpawned = false;
 
-    // This method is called to spawn monsters when triggered
     public void SpawnMonsters()
     {
         if (!monstersSpawned)

@@ -3,25 +3,26 @@ using UnityEngine.AI;
 
 public class MonsterAI : MonoBehaviour
 {
-    public float detectionRange = 20f; // How far the monster can detect the player
-    public float moveSpeed = 3.5f;     // Speed when moving towards the player
-    public float idleTime = 2f;        // Time the monster stands still before moving again
-    public float moveTime = 3f;        // Time the monster moves before stopping again
+    public float detectionRange = 20f; 
+    public float moveSpeed = 3.5f;     
+    public float idleTime = 2f;        
+    public float moveTime = 3f;       
 
-    private Transform player;          // Reference to the player's Transform
-    private NavMeshAgent navMeshAgent; // NavMeshAgent component
-    private bool isMoving = false;     // Flag to check if the monster is currently moving
-    private float timer = 0f;          // Timer to track time for idle and move phases
+    private Transform player;          
+    private NavMeshAgent navMeshAgent; 
+    private bool isMoving = false;     
+    private float timer = 0f;          
+
 
     private void Start()
     {
-        // Find the player by tag
-        player = GameObject.FindGameObjectWithTag("Player").transform;
+      
+        player = GameObject.FindGameObjectWithTag("Player").transform; // here we find where the player's position is so we can use it later after game has started
 
-        // Get the NavMeshAgent component
-        navMeshAgent = GetComponent<NavMeshAgent>();
+       
+        navMeshAgent = GetComponent<NavMeshAgent>(); //stuff that is required for the ai to move
 
-        // Set the agent's speed for movement towards the player
+       
         navMeshAgent.speed = moveSpeed;
     }
 
@@ -40,12 +41,12 @@ public class MonsterAI : MonoBehaviour
         }
     }
 
-    private void MoveTowardsPlayer()
+    private void MoveTowardsPlayer() //Moves monster toward player using navmesh navigation
     {
-        // Directly set the destination to the player's position
+       
         navMeshAgent.SetDestination(player.position);
 
-        // Ensure the monster is moving towards the player
+       
         isMoving = true;
     }
 
